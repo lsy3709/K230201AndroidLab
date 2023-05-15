@@ -5,11 +5,15 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
+import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.DatePicker
+import android.widget.MediaController
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -56,6 +60,34 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //샘플 영상 확인 작업.
+        binding.btnVideo.setOnClickListener {
+            val videofile:Uri = Uri.parse("android.resource://"+packageName+"/raw/testvideo")
+
+//            val player: MediaPlayer = MediaPlayer.create(this@MainActivity,R.raw.testvideo)
+//            player.start()
+            val mc = MediaController(this) // 비디오 컨트롤 가능하게(일시정지, 재시작 등)
+
+            binding.videoView.setMediaController(mc)
+            binding.videoView.setVideoPath(videofile.toString()) // 선택한 비디오 경로 비디오뷰에 셋
+            binding.videoView.start() // 비디오뷰 시작
+
+//            binding.VideoImage2.setVideoURI(uri)
+//// 비디오 뷰 테스트
+//            binding.VideoImage2.setOnPreparedListener {
+//                    mp -> // 준비 완료되면 비디오 재생
+//                mp.start()
+//            }
+        }
+
+
+        //소리 부분 확인 작업.
+        binding.btnSound.setOnClickListener {
+            val notification : Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val ringtone = RingtoneManager.getRingtone(applicationContext, notification)
+            ringtone.play()
+        }
+
         // 다이얼로그에 체크박스 선택 부분 해보기.
         binding.btnCheck.setOnClickListener {
             val items = arrayOf<String>("두루치기","된장찌개","밀면","칼국수")
@@ -79,8 +111,9 @@ class MainActivity : AppCompatActivity() {
                     }
                 )
                 setPositiveButton("닫기",null)
+                setCancelable(true)
                 show()
-            }
+            }.setCanceledOnTouchOutside(true)
         }
 
         // 다이얼로그에 메뉴 선택 부분 확인 해보기.
