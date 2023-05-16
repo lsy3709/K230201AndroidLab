@@ -14,6 +14,7 @@ class MainActivity354 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main354)
 
+        //
         val binding= ActivityMain354Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -21,6 +22,8 @@ class MainActivity354 : AppCompatActivity() {
         for(i in 1..3){
             datas.add("Item $i")
         }
+        //뷰 페이저 2 , 구성하는 방식이, 기존의 리사이클러 뷰의 어댑터 방식을 채용하고 있음.
+        // 방법2가지 인데, 프래그먼트 방식도 있음. 다음 파일에서
         binding.viewpager.adapter=MyPagerAdapter(datas)
     }
 
