@@ -7,6 +7,7 @@ import com.example.test11.databinding.ActivityMain2Binding
 class MainActivity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
