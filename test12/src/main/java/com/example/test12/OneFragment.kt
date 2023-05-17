@@ -17,4 +17,6 @@ class OneFragment : Fragment() {
         binding = FragmentOneBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
 }

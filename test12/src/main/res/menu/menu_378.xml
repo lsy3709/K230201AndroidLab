@@ -13,11 +13,11 @@
     <item
         android:icon="@android:drawable/ic_menu_help"
         android:title="setting"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/menu1"
         android:title="메뉴1"
-        app:showAsAction="never"/>
+        />
 
 </menu>

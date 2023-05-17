@@ -16,14 +16,14 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test12.databinding.ActivityMainBinding
+import com.example.test12.databinding.ActivityMainCopyBinding
 import com.example.test12.databinding.ItemRecyclerviewBinding
-import com.google.android.material.tabs.TabLayoutMediator
 
-class MainActivity : AppCompatActivity() {
+class MainActivityCopy : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding = ActivityMainCopyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
@@ -58,21 +58,6 @@ class MainActivity : AppCompatActivity() {
 
         //앱바 라는 뷰에, 툴바, 이미지 뷰, 리사이클러뷰도
         //참고코드 : MainActivity378
-
-        //탭 뷰 부분을 추가 -> xml 에서 작업을 먼저 했음.
-        val tabLayout = binding.tabs
-
-        //뷰 페이저 2 추가 .-> xml 에서 , viewpager 부분을 추가해야함.
-        val viewPager = binding.viewpager
-
-        // 뷰페이져2 부분에 설정 한 부분 적용하기. 어댑터 연결.
-        // 어댑터 , 뷰 객체에 데이터를 연결(연동) 하는 부분.
-        viewPager.adapter= MainActivity2.MyFragmentPagerAdapter(this)
-
-        // 탭 부분과 뷰페이저2 연동하기.
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = "Tab${(position + 1)}"
-        }.attach()
 
     }
 
