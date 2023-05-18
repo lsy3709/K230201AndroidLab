@@ -32,17 +32,20 @@ class BundleActivity : AppCompatActivity() {
         Log.d("lsy","onSaveInstanceState..........")
         //저장하기.
         outState.putString("data1", "hello")
-        outState.putInt("data2", 10)
+        outState.putInt("data2", 20)
+        outState.putInt("data3", 10)
     }
 
     //재정의하기. 매개변수가 1개인 경우
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
+        Log.d("lsy","onRestoreInstanceState..........")
         //값 불러오기.
         val data1 = savedInstanceState.getString("data1")
         val data2 = savedInstanceState.getInt("data2")
+        val data3 = savedInstanceState.getInt("data3")
 
-        binding.countResultView.text="$data1 - $data2"
+        binding.countResultView.text="$data2 - $data3"
     }
 }
