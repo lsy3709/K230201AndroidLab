@@ -5,21 +5,92 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import com.example.test16.databinding.ActivityMain2Binding
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class MainActivity2 : AppCompatActivity() {
+
     lateinit var binding : ActivityMain2Binding
+    // 카메라 사진 촬영 후, 저장 할 파일의 경로.
+    lateinit var filePath: String
+
+    // 참고 코드 : ch16_provider -> MainActivity,
+    // 뷰는 재활용. 복사.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 순서2
+        // 카메라 앱 촬영 후 사진 재활용.
+        //camera request launcher.................
+        val requestCameraFileLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()){
+            val calRatio = calculateInSampleSize(
+                Uri.fromFile(File(filePath)),
+                resources.getDimensionPixelSize(R.dimen.imgSize),
+                resources.getDimensionPixelSize(R.dimen.imgSize)
+            )
+            val option = BitmapFactory.Options()
+            option.inSampleSize = calRatio
+            val bitmap = BitmapFactory.decodeFile(filePath, option)
+            bitmap?.let {
+                binding.userImageView.setImageBitmap(bitmap)
+            }
+        }
+
+
+        binding.cameraButton.setOnClickListener {
+            //camera app......................
+            //파일 준비...............
+            // 현재 날짜와 시간을 조합해서yyyyMMdd_HHmmss , 문자열 형식으로 만들어줌.
+            val timeStamp: String =
+                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+            // 실제 저장되는 물리 경로,
+            // 앱별 저장소, getExternalFilesDir 이용하면,
+            // 개발자가 앱별 저장소에 접근 하기 위해서, 시스템에 요청, 콘텐츠 프로바이더를 이용함.
+            // 그 때, 사용할 경로도 설정을 같이 함.
+            // xml -> 경로 설정.
+            //DIRECTORY_PICTURES 상수, 즉, 갤러리 위치에 물리파일 저장.
+            val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            // 실제 물리 파일을 만드는 작업.
+            // 파일 명 : JPEG_yyyyMMdd_HHmmss_브레드.jpg
+            // storageDir : 경로에 물리 파일 만들어짐.
+            val file = File.createTempFile(
+                "JPEG_${timeStamp}_",
+                ".jpg",
+                storageDir
+            )
+            // 실제 물리 파일의 위치 주소, 절대 경로.
+            filePath = file.absolutePath
+            // 컨텐츠 프로바이더를 이용해서 외부 저장 경로에 접근,
+            // 암구호 : com.example.ch16_provider.fileprovider 인증이되면,
+            // 해당 경로에 접근이 가능하고, 파일 위치 정보도 알아 냈수 있음.
+            // 매니페스트 파일에서 설정1
+            // res -> xml 여기서 경로 설정2
+            //복사
+            val photoURI: Uri = FileProvider.getUriForFile(
+                this,
+                "com.example.ch16_provider.fileprovider",
+                file
+            )
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            requestCameraFileLauncher.launch(intent)
+
+        }
+
+
+
         // 갤러리 앱에서 사진 선택 후, 후처리 하기.
-        // 참고 코드 : ch16_provider -> MainActivity,
-        // 뷰는 재활용. 복사.
+
         // 순서1
         //gallery request launcher..................
         // 갤러리 앱에서 사진 선택 한 데이터를 여기서 처리 합니다.
