@@ -99,6 +99,7 @@ class MainActivity2 : AppCompatActivity() {
             // value 값은 : photoURI : contenxt 자기자신 객체,액티비티
             // 암구호 : com.example.ch16_provider.fileprovider
             // 물리파일 이름.
+            // 물리 파일에 저장하는 작업.
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             // 후처리 작업. 현재 앱 -> 카메라 앱 , 사진 촬영한 사진 데이터 -> 현재 앱으로 가져오기.
             requestCameraFileLauncher.launch(intent)
