@@ -21,6 +21,10 @@ class MainActivity2 : AppCompatActivity() {
     // 카메라 사진 촬영 후, 저장 할 파일의 경로.
     lateinit var filePath: String
 
+    // 에뮬레이터 실제 물리 경로
+    // storage->emulated -> 0 -> Android -> data ->
+    // path="Android/data/com.example.test16/files/Pictures"/>
+
     // 참고 코드 : ch16_provider -> MainActivity,
     // 뷰는 재활용. 복사.
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +35,21 @@ class MainActivity2 : AppCompatActivity() {
         // 순서2
         // 카메라 앱 촬영 후 사진 재활용.
         //camera request launcher.................
+        // 카메라에서 넘어온 사진 데이터를 처리해서,
+        // 앱별 저장소(우리가 지정한 ,Pictures 에 파일로 저장 작업)
         val requestCameraFileLauncher = registerForActivityResult(
+            // 후 처리.
             ActivityResultContracts.StartActivityForResult()){
+            // 원본 사진 크기 그대로 읽거나 처리 작업하면 ,OOM 사이즈 줄여야 한다.
+
+            // 갤러리 설명했음.
             val calRatio = calculateInSampleSize(
+                // 저장할 물리 파일의 위치를 Uri 타입으로 변경.
                 Uri.fromFile(File(filePath)),
                 resources.getDimensionPixelSize(R.dimen.imgSize),
                 resources.getDimensionPixelSize(R.dimen.imgSize)
             )
+            // 갤러리 주석. 참고
             val option = BitmapFactory.Options()
             option.inSampleSize = calRatio
             val bitmap = BitmapFactory.decodeFile(filePath, option)
@@ -78,11 +90,17 @@ class MainActivity2 : AppCompatActivity() {
             //복사
             val photoURI: Uri = FileProvider.getUriForFile(
                 this,
-                "com.example.ch16_provider.fileprovider",
+                "com.example.test16.fileprovider",
                 file
             )
+            //MediaStore.ACTION_IMAGE_CAPTURE : 카메라 앱 호출.
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            // 카메라 앱에 데이터를 전달, 키: 상수, output 문자열
+            // value 값은 : photoURI : contenxt 자기자신 객체,액티비티
+            // 암구호 : com.example.ch16_provider.fileprovider
+            // 물리파일 이름.
             intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            // 후처리 작업. 현재 앱 -> 카메라 앱 , 사진 촬영한 사진 데이터 -> 현재 앱으로 가져오기.
             requestCameraFileLauncher.launch(intent)
 
         }
