@@ -76,7 +76,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper
         db.update(TABLE_NAME, contentValues, "ID = ?", arrayOf(id))
         return true
     }
-
+//저장
     // 자바(static) , 클래스 변수 -> 클래스명.  접근.
     companion object {
         // DatabaseHelper 클래스명 -> mydb
