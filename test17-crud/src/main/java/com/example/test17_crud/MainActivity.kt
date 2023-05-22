@@ -10,7 +10,11 @@ import androidx.appcompat.app.AlertDialog
 import com.example.test17_crud.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    // 전역으로 선언만 했지, 할당을 안했음.
+    // 그래서, onCreate 라는 함수에서 , 최초 1회 실행시.
+    // 할당을 하는 구조.
     var myDB: DatabaseHelper? = null
+
     lateinit var binding: ActivityMainBinding
 
     var editTextName: EditText? = null
@@ -24,10 +28,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+// 전역에 선언된 변수들을 할당하는 구조.
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 //        setContentView(R.layout.activity_main)
+        //DatabaseHelper 클래스 를 사용한다.
+        // 객체 생성한다. ->
         myDB = DatabaseHelper(this)
+
+        // 자바 버전에 코드 -> 코틀린 변경.
+        // findViewById ->  바인딩 기법으로 사용했음.
         editTextName = binding.editTextName
         editTextPhone = binding.editTextPhone
         editTextAddress = binding.editTextAddress
@@ -37,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         buttonUpdate = binding.buttonUpdate
         buttonDelete = findViewById(R.id.buttonDelete)
         buttonDelete = binding.buttonDelete
+        // 최초 1회 실행시, 직접 만든 함수를 호출하는 부분.
         AddData()
         viewAll()
         UpdateData()
@@ -51,22 +63,34 @@ class MainActivity : AppCompatActivity() {
                 editTextPhone!!.text.toString(),
                 editTextAddress!!.text.toString()
             )
-            if (isInserted == true) Toast.makeText(this@MainActivity, "데이터추가 성공", Toast.LENGTH_LONG)
-                .show() else Toast.makeText(this@MainActivity, "데이터추가 실패", Toast.LENGTH_LONG).show()
+            if (isInserted == true)
+                Toast.makeText(this@MainActivity, "데이터추가 성공", Toast.LENGTH_LONG)
+                .show()
+            else Toast.makeText(this@MainActivity, "데이터추가 실패", Toast.LENGTH_LONG).show()
         }
     }
 
     // 데이터베이스 읽어오기
     fun viewAll() {
         buttonView!!.setOnClickListener(View.OnClickListener {
+            // res에 조회된 , 테이블의 내용이 들어가 있다. select 의 조회의 결괏값있다.
             val res = myDB!!.allData
+            // 결과가 없을 때
             if (res.count == 0) {
                 ShowMessage("실패", "데이터를 찾을 수 없습니다.")
                 return@OnClickListener
             }
+            //결과가 있다면.
+            // 자바에서, String 단점, 새로운 문자열이 있다면, 매번 새로 주소를 생성.
+            // StringBuffer 하나의 객체에 해당 문자열을 추가만 하는 형태라서, 주소를 새로 생성안함.
+
             val buffer = StringBuffer()
+            //res 형 ->Cursor , 쉽게 엑셀 마치 테이블 , 0행부터 시작한다.
+            // res.moveToNext() -> 1행을 의미.
             while (res.moveToNext()) {
                 buffer.append(
+                    //코틀린 3중 따옴표, 멀티 라인.
+                    // 1행의 첫번째 컬럼을 가져오기.
                     """
     ID: ${res.getString(0)}
     
@@ -105,8 +129,10 @@ class MainActivity : AppCompatActivity() {
                 editTextPhone!!.text.toString(),
                 editTextAddress!!.text.toString()
             )
-            if (isUpdated == true) Toast.makeText(this@MainActivity, "데이터 수정 성공", Toast.LENGTH_LONG)
-                .show() else Toast.makeText(this@MainActivity, "데이터 수정 실패", Toast.LENGTH_LONG)
+            if (isUpdated == true)
+                Toast.makeText(this@MainActivity, "데이터 수정 성공", Toast.LENGTH_LONG)
+                .show()
+            else Toast.makeText(this@MainActivity, "데이터 수정 실패", Toast.LENGTH_LONG)
                 .show()
         }
     }
@@ -115,8 +141,10 @@ class MainActivity : AppCompatActivity() {
     fun DeleteData() {
         buttonDelete!!.setOnClickListener {
             val deleteRows = myDB!!.deleteData(editTextID!!.text.toString())
-            if (deleteRows > 0) Toast.makeText(this@MainActivity, "데이터 삭제 성공", Toast.LENGTH_LONG)
-                .show() else Toast.makeText(this@MainActivity, "데이터 삭제 실패", Toast.LENGTH_LONG)
+            if (deleteRows > 0)
+                Toast.makeText(this@MainActivity, "데이터 삭제 성공", Toast.LENGTH_LONG)
+                .show()
+            else Toast.makeText(this@MainActivity, "데이터 삭제 실패", Toast.LENGTH_LONG)
                 .show()
         }
     }

@@ -112,6 +112,7 @@
         android:id="@+id/editTextID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:hint="수정및 삭제시 여기에 ID를 입력해주세요."
         android:layout_marginStart="29dp"
         android:layout_marginTop="15dp"
         android:ems="10"
