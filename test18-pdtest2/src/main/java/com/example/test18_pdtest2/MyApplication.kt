@@ -7,14 +7,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MyApplication: Application(){
 
-    var url2 = "https://apis.data.go.kr/6260000"
-
     //add....................................
     var networkService: NetworkService
 
     val retrofit: Retrofit
         get() = Retrofit.Builder()
-//                .baseUrl("https://busan-food.openapi.redtable.global")
+                //도보여행, 부산맛집정보서비스
             .baseUrl("https://apis.data.go.kr/6260000/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()

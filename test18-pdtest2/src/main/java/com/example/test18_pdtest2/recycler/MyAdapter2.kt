@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.example.test18_pdtest2.ItemModel3
 import com.example.test18_pdtest2.databinding.ItemMainBinding
 
-class MyViewHolder(val binding: ItemMainBinding): RecyclerView.ViewHolder(binding.root)
+//부산맛집
+class MyViewHolder2(val binding: ItemMainBinding): RecyclerView.ViewHolder(binding.root)
 
-class MyAdapter(val context: Context, val datas: List<ItemModel3>?): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class MyAdapter2(val context: Context, val datas: List<ItemModel4>?): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun getItemCount(): Int{
         return datas?.size ?: 0
