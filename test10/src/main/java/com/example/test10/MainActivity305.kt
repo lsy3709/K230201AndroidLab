@@ -69,7 +69,7 @@ class MainActivity305 : AppCompatActivity() {
                 // 이제, 어느정도 실력이 쌓이면, 그 때, API , 라이브러리를 직접 만들어서, 이용하면됨.
                 //
                 thread {
-                    for (i in 1..100){
+                    for (i in 1..100) {
                         builder.setProgress(100, i, true)
                         manager.notify(11, builder.build())
                         SystemClock.sleep(100)
@@ -77,4 +77,5 @@ class MainActivity305 : AppCompatActivity() {
                 }
             }
         }
+    }
 }
