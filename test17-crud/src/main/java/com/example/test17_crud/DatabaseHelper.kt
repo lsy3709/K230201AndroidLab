@@ -56,6 +56,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper
     val allData: Cursor
         get() {
             val db = this.writableDatabase
+            db.query()
             return db.rawQuery("select * from $TABLE_NAME", null)
         }
 
