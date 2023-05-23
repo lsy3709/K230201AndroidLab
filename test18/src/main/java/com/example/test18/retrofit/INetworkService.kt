@@ -12,7 +12,7 @@ interface INetworkService {
     @GET("api/users")
     // baseurl : https://reqres.in/
     //https://reqres.in/api/users?page=2
-    //예를 들어서 doGetUserList(2)
+    //예를 들어서 doGetUserList("2")
     fun doGetUserList(@Query("page") page: String): Call<UserListModel>
     @GET
     fun getAvatarImage(@Url url: String): Call<ResponseBody>
