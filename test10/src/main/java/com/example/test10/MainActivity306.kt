@@ -69,7 +69,7 @@ class MainActivity306 : AppCompatActivity() {
         }
         binder.button4.setOnClickListener {
             val sender1: Person = Person.Builder()
-                .setName("kkang")
+                .setName("lsy")
                 .setIcon(IconCompat.createWithResource(this, R.drawable.person1))
                 .build()
 

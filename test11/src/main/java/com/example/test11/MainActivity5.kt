@@ -48,7 +48,7 @@ class MainActivity5 : AppCompatActivity() {
     class MyAdapter(val datas: MutableList<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         override fun getItemCount(): Int{
-            Log.d("kkang", "init datas size: ${datas.size}")
+            Log.d("lsy", "init datas size: ${datas.size}")
             return datas.size
         }
 // 우리가 만든 뷰 홀더 생성자 호출하는 부분,
@@ -59,7 +59,7 @@ class MainActivity5 : AppCompatActivity() {
                 = MyViewHolder(Item342Binding.inflate(LayoutInflater.from(parent.context), parent, false))
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            Log.d("kkang","onBindViewHolder : $position")
+            Log.d("lsy","onBindViewHolder : $position")
             val binding=(holder as MyViewHolder).binding
             //뷰에 데이터 출력
             binding.itemData.text= datas[position]
@@ -67,7 +67,7 @@ class MainActivity5 : AppCompatActivity() {
             //뷰에 이벤트 추가
             // 옵션, 클릭시 이벤트.
             binding.itemRoot.setOnClickListener{
-                Log.d("kkang", "item root click : $position")
+                Log.d("lsy", "item root click : $position")
             }
         }
     }

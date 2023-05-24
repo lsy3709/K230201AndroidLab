@@ -36,7 +36,7 @@ class MainActivity355 : AppCompatActivity() {
         init {
             // MyFragmentPagerAdapter 생성자 호출시 마다, 항상 실행되는 코드 부분.
             fragments= listOf(OneFragment(), TwoFragment(), ThreeFragment())
-            Log.d("kkang" ,"fragments size : ${fragments.size}")
+            Log.d("lsy" ,"fragments size : ${fragments.size}")
         }
         override fun getItemCount(): Int = fragments.size
 

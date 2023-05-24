@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 // android.permission.READ_CONTACTS : 액션 문자열 , 상수로 정해져 있음.
                 // 외부저장소, 특정 권한 관련된 문자 상수 여러개.
                 if(entry.key == "android.permission.READ_CONTACTS" && entry.value) {
-                    Log.d("kkang", "granted ok...")
+                    Log.d("lsy", "granted ok...")
                     // Intent.ACTION_PICK -> 두번 째 매개변수 데이터가, 연락처, 위도경도, 웹주소 등에따라서
                     // 호출하는 앱이 다름. 연락처 앱, 지도 앱, 브라우저.
                     val intent =
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             // 연락처 접근 승인이 받은 상태이면, 이제, 넘어온 연락처 정보를 불러오는 과정.
             if(it.resultCode == RESULT_OK){
                 // it.data 이부분 선택된 연락처 정보 하나가 있음.
-                Log.d("kkang", "${it.data?.data}")
+                Log.d("lsy", "${it.data?.data}")
 
                 // 커서
                 val cursor = contentResolver.query(
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     null,
                     null
                 )
-                Log.d("kkang", "cursor size....${cursor?.count}")
+                Log.d("lsy", "cursor size....${cursor?.count}")
                 if (cursor!!.moveToFirst()) {
                     val name = cursor?.getString(0)
                     val phone = cursor?.getString(1)

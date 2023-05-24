@@ -100,11 +100,11 @@ class MainActivity : AppCompatActivity() {
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 //
 //        0 -> {
-//            Log.d("kkang", "menu1 click")
+//            Log.d("lsy", "menu1 click")
 //            true
 //        }
 //        1 -> {
-//            Log.d("kkang", "menu2 click")
+//            Log.d("lsy", "menu2 click")
 //            true
 //        }
 //        else -> super.onOptionsItemSelected(item)

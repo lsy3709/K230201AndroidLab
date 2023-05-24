@@ -149,7 +149,7 @@ class MainActivity2 : AppCompatActivity() {
                     //bitmap : 리사이즈가 된 사진이 들어 있다.
                     binding.userImageView.setImageBitmap(bitmap)
                 } ?: let{
-                    Log.d("kkang", "bitmap null")
+                    Log.d("lsy", "bitmap null")
                 }
             }catch (e: Exception){
                 e.printStackTrace()

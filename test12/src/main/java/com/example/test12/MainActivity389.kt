@@ -43,7 +43,7 @@ class MainActivity389 : AppCompatActivity() {
         // 클릭시 : 로그캣 창에서 해당 아이템의 제목이 나옴.
         //
         binding.mainDrawerView.setNavigationItemSelectedListener {
-            Log.d("kkang","navigation item click... ${it.title}")
+            Log.d("lsy","navigation item click... ${it.title}")
             true
         }
     }

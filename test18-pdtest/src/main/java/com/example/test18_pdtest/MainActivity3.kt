@@ -1,14 +1,13 @@
-package com.example.test18
+package com.example.test18_pdtest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.test18.Model.UserListModel
-import com.example.test18.Model.UserModel
-import com.example.test18.adpater.MyAdapter
-import com.example.test18.databinding.ActivityMain3Binding
+import com.example.test18_pdtest.Model.UserListModel
+import com.example.test18_pdtest.adpater.MyAdapter
+import com.example.test18_pdtest.databinding.ActivityMain3Binding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,31 +20,29 @@ class MainActivity3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val serviceKey = "ALRX9GpugtvHxcIO%2FiPg1vXIQKi0E6Kk1ns4imt8BLTgdvSlH%2FAKv%2BA1GcGUQgzuzqM3Uv1ZGgpG5erOTDcYRQ%3D%3D"
         binding = ActivityMain3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val networkService = (applicationContext as MyApplication).networkService
 
-        //공공데이터 파라미터 변경 부분.
-        //http://apis.data.go.kr/6260000/FoodService/getFoodKr?resultType=json&serviceKey=ALRX9GpugtvHxcIO%2FiPg1vXIQKi0E6Kk1ns4imt8BLTgdvSlH%2FAKv%2BA1GcGUQgzuzqM3Uv1ZGgpG5erOTDcYRQ%3D%3D&numOfRows=10&pageNo=1
-        val userListCall = networkService.doGetUserList(
-            "json",)
+        val userListCall = networkService.doGetUserList("json",serviceKey,10,1)
         Log.d("lsy", "url:" + userListCall.request().url().toString())
 
         userListCall.enqueue(object : Callback<UserListModel> {
             override fun onResponse(call: Call<UserListModel>, response: Response<UserListModel>) {
 
                 val userList = response.body()
-                Log.d("lsy","Test18 userList data 값 : ${userList?.data}")
+                Log.d("lsy","Test18 userList data 값 : ${userList?.item}")
                 //.......................................
 
-                binding.recyclerView.adapter= MyAdapter(this@MainActivity3, userList?.data)
+                binding.recyclerView.adapter= MyAdapter(this@MainActivity3, userList?.item)
                 binding.recyclerView.addItemDecoration(
                     DividerItemDecoration(this@MainActivity3, LinearLayoutManager.VERTICAL)
                 )
 
-                binding.pageView.text=userList?.page
-                binding.totalView.text=userList?.total
+//                binding.pageView.text=userList?.page
+//                binding.totalView.text=userList?.total
             }
 
             override fun onFailure(call: Call<UserListModel>, t: Throwable) {
