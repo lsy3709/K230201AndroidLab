@@ -32,6 +32,7 @@ class MyAdapter2(val context: Context, val datas: List<ItemModel4>?): RecyclerVi
         val user = datas?.get(position)
         binding.firstNameView.text = user?.TITLE
         val urlImg = user?.MAIN_IMG_NORMAL
+        binding.contactView.text = user?.CNTCT_TEL
 
         Glide.with(context)
             .asBitmap()

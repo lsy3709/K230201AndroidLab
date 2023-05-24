@@ -2,6 +2,7 @@ package com.example.test18_pdtest2
 
 import com.google.gson.annotations.SerializedName
 
+//도보여행
 data class PageListModel2 (
     //var data: List<ItemModel>?
         var getWalkingKr: GetWalkingKr
