@@ -9,7 +9,7 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
-class ScanQRActivity : AppCompatActivity() {
+class ScanQRActivityBackupHor1 : AppCompatActivity() {
     lateinit var binding: ActivityScanQractivityBinding
 
     // 스캐너 설정
@@ -38,36 +38,7 @@ class ScanQRActivity : AppCompatActivity() {
 
     fun onScanButtonClicked() {
         // Launch ( SCAN 실행 )
-        //기존 가로 방향 설정.
-//        barcodeLauncher.launch(ScanOptions())
-
-        // 세로 방향 옵션
-        val options = ScanOptions()
-        options.setOrientationLocked(false)     // ScanOption 의 Orientation Lock 을 해제하기.
-        barcodeLauncher.launch(options)         // Orientation Lock 을 해제한 상태로 실행.
-
-    }
-
-    // 커스텀 스캐너 실행하기
-    // Custom SCAN - onClick
-    private fun onCustomScanButtonClicked() {
-        // Custom Scan Layout -> Activity
-
-        // Intent ? -> 맞는 방법일까 ?
-        // val intent = Intent( this, CustomBarcodeScannerActivity::class.java)
-        // startActivity(intent)
-
-        // ScanOptions + captureActivity(CustomScannerActivity)
-        val options = ScanOptions()
-        options.setOrientationLocked(false)
-        // options.setCameraId(1)          // 0 : 후면(default), 1 : 전면,
-        options.setBeepEnabled(true)
-        // options.setTorchEnabled(true)      // true : 실행되자마자 플래시가 켜진다.
-        options.setPrompt("커스텀 QR 스캐너 창")
-        options.setDesiredBarcodeFormats( ScanOptions.QR_CODE )
-        options.captureActivity = CustomBarcodeScannerActivity::class.java
-
-        barcodeLauncher.launch(options)
+        barcodeLauncher.launch(ScanOptions())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,11 +52,6 @@ class ScanQRActivity : AppCompatActivity() {
         // SCAN 버튼 클릭
         binding.btnScan.setOnClickListener {
             onScanButtonClicked()
-        }
-
-        // Custom Scan 버튼 클릭
-        binding.btnCustomScan.setOnClickListener {
-            onCustomScanButtonClicked()
         }
     }
 }
