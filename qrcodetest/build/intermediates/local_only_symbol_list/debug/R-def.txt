@@ -1,0 +1,18 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id btnCreate
+id btnScan
+id imageViewQrCode
+id txtResult
+layout activity_create_qractivity
+layout activity_main
+layout activity_scan_qractivity
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Base.Theme.K23021AndroidLab
+style Theme.K23021AndroidLab
